@@ -52,6 +52,10 @@
         cursor: default;
       }
       .e-option:hover {
+        background: #eee;
+      }
+
+      .selected{
         background: #ddd;
       }
     </style>
@@ -66,16 +70,14 @@
         <option>Option 05</option>
       </select>
 
-      <div class="wrapper">
-        <div class="e-select" @mousedown="open = true" tabindex="0" @blur="onBlur">
-          Option 01
-        </div>
+      <div class="wrapper" >
+        <div class="e-select" @mousedown="open = true" @blur="onBlur" tabindex="0">{{selected}}</div>
         <div class="e-options" v-if="open">
-          <div class="e-option">Option 01</div>
-          <div class="e-option">Option 02</div>
-          <div class="e-option">Option 03</div>
-          <div class="e-option">Option 04</div>
-          <div class="e-option">Option 05</div>
+          <div @mousedown="select('Option 01', $event)" :class="{selected: selected === 'Option 01'}" class="e-option">Option 01</div>
+          <div @mousedown="select('Option 02', $event)" :class="{selected: selected === 'Option 02'}" class="e-option">Option 02</div>
+          <div @mousedown="select('Option 03', $event)" :class="{selected: selected === 'Option 03'}" class="e-option">Option 03</div>
+          <div @mousedown="select('Option 04', $event)" :class="{selected: selected === 'Option 04'}" class="e-option">Option 04</div>
+          <div @mousedown="select('Option 05', $event)" :class="{selected: selected === 'Option 05'}" class="e-option">Option 05</div>
         </div>
       </div>
     </div>
@@ -85,11 +87,17 @@
       new Vue({
         el: "#app",
         data: {
-          open: false
+          open: false,
+          selected: "Option 01"
         },
         methods:{
           onBlur(){
             this.open = false
+          },
+          select(value, ev){
+            this.selected = value
+            this.open = false
+            ev.preventDefault()
           }
         }
       });
