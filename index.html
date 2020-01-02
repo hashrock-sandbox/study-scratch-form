@@ -75,6 +75,7 @@
           class="e-select"
           @mousedown="open = true"
           @blur="onBlur"
+          @focus="onFocus"
           tabindex="0"
         >
           {{selected}}
@@ -115,20 +116,60 @@
             "Option 04",
             "Option 05"
           ],
-          selected: ""
+          selectedIndex: -1,
+          active: false
+        },
+        computed: {
+          selected(){
+            return this.options[this.selectedIndex]
+          }
         },
         methods: {
+          setSelection(value){
+            this.selectedIndex = this.options.indexOf(value)
+          },
           onBlur() {
             this.open = false;
+            this.active = false
           },
           onSelect(value) {
-            this.selected = value;
+            this.setSelection(value)
             this.open = false;
-            // ev.preventDefault();
+          },
+          onFocus(){
+            this.active = true
           }
         },
         mounted(){
-          this.selected = this.options[0]
+          this.selectedIndex = this.options.length > 0 ? 0 : 1;
+          this.$el.addEventListener("keydown", (ev)=>{
+            if(!this.active){
+              return;
+            }
+            switch(ev.code){
+              case "Tab":
+                break;
+              case "Space":
+                this.open = !this.open
+                break;
+              case "ArrowUp": 
+                this.open = true
+                if(this.selectedIndex > 0){
+                  this.selectedIndex--
+                }
+                break;
+              case "ArrowDown": 
+                this.open = true
+                if(this.selectedIndex < this.options.length - 1){
+                  this.selectedIndex++
+                }
+                break;
+              case "Enter":
+                if(this.open){
+                  this.open = false;
+                }
+            }
+          })
         }
       });
     </script>
