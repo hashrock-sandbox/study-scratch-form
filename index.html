@@ -55,7 +55,7 @@
         background: #eee;
       }
 
-      .selected{
+      .selected {
         background: #ddd;
       }
     </style>
@@ -70,34 +70,61 @@
         <option>Option 05</option>
       </select>
 
-      <div class="wrapper" >
-        <div class="e-select" @mousedown="open = true" @blur="onBlur" tabindex="0">{{selected}}</div>
+      <div class="wrapper">
+        <div
+          class="e-select"
+          @mousedown="open = true"
+          @blur="onBlur"
+          tabindex="0"
+        >
+          {{selected}}
+        </div>
         <div class="e-options" v-if="open">
-          <div @mousedown="select('Option 01', $event)" :class="{selected: selected === 'Option 01'}" class="e-option">Option 01</div>
-          <div @mousedown="select('Option 02', $event)" :class="{selected: selected === 'Option 02'}" class="e-option">Option 02</div>
-          <div @mousedown="select('Option 03', $event)" :class="{selected: selected === 'Option 03'}" class="e-option">Option 03</div>
-          <div @mousedown="select('Option 04', $event)" :class="{selected: selected === 'Option 04'}" class="e-option">Option 04</div>
-          <div @mousedown="select('Option 05', $event)" :class="{selected: selected === 'Option 05'}" class="e-option">Option 05</div>
+          <e-option
+            v-for="(option, idx) in options"
+            :key="idx"
+            @select="onSelect"
+            :selected="selected"
+            :option="option"
+          ></e-option>
         </div>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+      Vue.component("e-option", {
+        props: ["selected", "option"],
+        template: `<div @mousedown="select($event)" :class="{selected: selected === option}" class="e-option">{{option}}</div>`,
+        methods: {
+          select(ev) {
+            this.$emit("select", this.option);
+            ev.preventDefault();
+          }
+        }
+      });
+
       new Vue({
         el: "#app",
         data: {
           open: false,
-          selected: "Option 01"
+          options: [
+            "Option 01",
+            "Option 02",
+            "Option 03",
+            "Option 04",
+            "Option 05"
+          ],
+          selected: ""
         },
-        methods:{
-          onBlur(){
-            this.open = false
+        methods: {
+          onBlur() {
+            this.open = false;
           },
-          select(value, ev){
-            this.selected = value
-            this.open = false
-            ev.preventDefault()
+          onSelect(value) {
+            this.selected = value;
+            this.open = false;
+            // ev.preventDefault();
           }
         }
       });
