@@ -49,6 +49,7 @@
       .e-option {
         line-height: 1.5em;
         padding: 0 0.5em;
+        cursor: default;
       }
       .e-option:hover {
         background: #ddd;
@@ -66,7 +67,7 @@
       </select>
 
       <div class="wrapper">
-        <div class="e-select" @mousedown="open = true" tabindex="0">
+        <div class="e-select" @mousedown="open = true" tabindex="0" @blur="onBlur">
           Option 01
         </div>
         <div class="e-options" v-if="open">
@@ -85,6 +86,11 @@
         el: "#app",
         data: {
           open: false
+        },
+        methods:{
+          onBlur(){
+            this.open = false
+          }
         }
       });
     </script>
