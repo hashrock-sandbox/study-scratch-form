@@ -22,6 +22,8 @@ option {
   line-height: 0.9em;
   border-radius: 4px;
   cursor: default;
+  display: flex;
+  align-items: center;
 }
 .e-options {
 }
@@ -38,9 +40,9 @@ option {
   border-radius: 4px;
   top: 100%;
 }
-.e-options.positionTop{
+.e-options.positionTop {
   top: auto;
-  bottom: 100%;  
+  bottom: 100%;
 }
 .e-option {
   line-height: 1.5em;

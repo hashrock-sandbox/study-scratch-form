@@ -20,6 +20,7 @@
       <div class="wrapper">
         <div
           class="e-select"
+          role="combobox"
           @mousedown="open = true"
           @blur="onBlur"
           @focus="onFocus"
@@ -29,13 +30,34 @@
           <div class="e-select__label">
             {{value}}
           </div>
-          <div class="e-options" v-if="open" ref="options" :class="{positionTop: !positionBottom}">
+          <svg
+            viewBox="0 0 640 640"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentcolor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="60"
+            style="margin-left: 4px;"
+          >
+            <path
+              d="M 200 200 L 320 80 L 440 200 M 440 440 L 320 560 L 200 440 "
+            />
+          </svg>
+          <div
+            class="e-options"
+            v-if="open"
+            ref="options"
+            :class="{positionTop: !positionBottom}"
+          >
             <e-option
               v-for="(option, idx) in options"
               :key="idx"
               @select="onSelect"
               :selected="selected"
               :option="option"
+              role="option"
             ></e-option>
           </div>
         </div>
