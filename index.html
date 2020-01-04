@@ -5,60 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <style>
-      body {
-        font-size: 16px;
-      }
-      #app {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 300px;
-        margin: 0 auto;
-        padding: 10rem;
-      }
-      select {
-        font-size: inherit;
-      }
-      option {
-      }
-
-      .e-select {
-        font-family: system-ui;
-        border: 1px solid #999;
-        padding: 0.25em 0.5em;
-        line-height: 0.9em;
-        border-radius: 4px;
-        cursor: default;
-      }
-      .e-options {
-      }
-      .wrapper {
-        position: relative;
-      }
-      .e-options {
-        font-family: system-ui;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: white;
-        border: 1px solid #999;
-        white-space: nowrap;
-        border-radius: 4px;
-      }
-      .e-option {
-        line-height: 1.5em;
-        padding: 0 0.5em;
-        cursor: default;
-      }
-      .e-option:hover {
-        background: #eee;
-      }
-
-      .selected {
-        background: #ddd;
-      }
-    </style>
+    <link rel="stylesheet" href="./index.css">
   </head>
   <body>
     <div id="app">
@@ -93,85 +40,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script>
-      Vue.component("e-option", {
-        props: ["selected", "option"],
-        template: `<div @mousedown="select($event)" :class="{selected: selected === option}" class="e-option">{{option}}</div>`,
-        methods: {
-          select(ev) {
-            this.$emit("select", this.option);
-            ev.preventDefault();
-          }
-        }
-      });
-
-      new Vue({
-        el: "#app",
-        data: {
-          open: false,
-          options: [
-            "Option 01",
-            "Option 02",
-            "Option 03",
-            "Option 04",
-            "Option 05"
-          ],
-          selectedIndex: -1,
-          active: false
-        },
-        computed: {
-          selected(){
-            return this.options[this.selectedIndex]
-          }
-        },
-        methods: {
-          setSelection(value){
-            this.selectedIndex = this.options.indexOf(value)
-          },
-          onBlur() {
-            this.open = false;
-            this.active = false
-          },
-          onSelect(value) {
-            this.setSelection(value)
-            this.open = false;
-          },
-          onFocus(){
-            this.active = true
-          }
-        },
-        mounted(){
-          this.selectedIndex = this.options.length > 0 ? 0 : 1;
-          this.$el.addEventListener("keydown", (ev)=>{
-            if(!this.active){
-              return;
-            }
-            switch(ev.code){
-              case "Tab":
-                break;
-              case "Space":
-                this.open = !this.open
-                break;
-              case "ArrowUp": 
-                this.open = true
-                if(this.selectedIndex > 0){
-                  this.selectedIndex--
-                }
-                break;
-              case "ArrowDown": 
-                this.open = true
-                if(this.selectedIndex < this.options.length - 1){
-                  this.selectedIndex++
-                }
-                break;
-              case "Enter":
-                if(this.open){
-                  this.open = false;
-                }
-            }
-          })
-        }
-      });
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>
