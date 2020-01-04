@@ -17,6 +17,7 @@ new Vue({
   data: {
     open: false,
     options: ["Option 01", "Option 02", "Option 03", "Option 04", "Option 05"],
+    value: "",
     selectedIndex: -1,
     active: false
   },
@@ -29,12 +30,16 @@ new Vue({
     setSelection(value) {
       this.selectedIndex = this.options.indexOf(value);
     },
+    apply() {
+      this.value = this.selected;
+    },
     onBlur() {
       this.open = false;
       this.active = false;
     },
     onSelect(value) {
       this.setSelection(value);
+      this.apply();
       this.open = false;
     },
     onFocus() {
@@ -43,6 +48,7 @@ new Vue({
   },
   mounted() {
     this.selectedIndex = this.options.length > 0 ? 0 : 1;
+    this.value = this.selected;
     this.$el.addEventListener("keydown", ev => {
       if (!this.active) {
         return;
@@ -51,6 +57,9 @@ new Vue({
         case "Tab":
           break;
         case "Space":
+          if (this.open) {
+            this.apply();
+          }
           this.open = !this.open;
           break;
         case "ArrowUp":
@@ -64,9 +73,20 @@ new Vue({
         case "Enter":
           if (this.open) {
             this.open = false;
+            this.apply();
           }
+          break;
+        case "Escape":
+          if (this.open) {
+            this.open = false;
+          }
+          break;
       }
-      this.selectedIndex = clamp(this.selectedIndex, 0, this.options.length - 1)
+      this.selectedIndex = clamp(
+        this.selectedIndex,
+        0,
+        this.options.length - 1
+      );
     });
   }
 });
