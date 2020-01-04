@@ -24,11 +24,12 @@
           @blur="onBlur"
           @focus="onFocus"
           tabindex="0"
+          ref="select"
         >
           <div class="e-select__label">
             {{value}}
           </div>
-          <div class="e-options" v-if="open">
+          <div class="e-options" v-if="open" ref="options" :class="{positionTop: !positionBottom}">
             <e-option
               v-for="(option, idx) in options"
               :key="idx"

@@ -19,7 +19,8 @@ new Vue({
     options: ["Option 01", "Option 02", "Option 03", "Option 04", "Option 05"],
     value: "",
     selectedIndex: -1,
-    active: false
+    active: false,
+    positionBottom: true
   },
   computed: {
     selected() {
@@ -47,6 +48,18 @@ new Vue({
     }
   },
   mounted() {
+    window.addEventListener("scroll", e=>{
+      let select = this.$refs["select"]
+      let options = this.$refs["options"]
+      if(!options){
+        return;
+      }
+
+      const relativePositionBottom = select.getBoundingClientRect().bottom - window.innerHeight;
+
+      this.positionBottom = -relativePositionBottom > options.clientHeight
+    })    
+
     this.selectedIndex = this.options.length > 0 ? 0 : 1;
     this.value = this.selected;
     this.$el.addEventListener("keydown", ev => {

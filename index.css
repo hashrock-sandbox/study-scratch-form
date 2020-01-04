@@ -7,7 +7,7 @@ body {
   align-items: center;
   width: 300px;
   margin: 0 auto;
-  padding: 10rem;
+  padding: 60rem 0;
 }
 select {
   font-size: inherit;
@@ -31,12 +31,16 @@ option {
 .e-options {
   font-family: system-ui;
   position: absolute;
-  top: 100%;
   left: 0;
   background: white;
   border: 1px solid #999;
   white-space: nowrap;
   border-radius: 4px;
+  top: 100%;
+}
+.e-options.positionTop{
+  top: auto;
+  bottom: 100%;  
 }
 .e-option {
   line-height: 1.5em;
