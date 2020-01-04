@@ -74,14 +74,17 @@ new Vue({
             this.apply();
           }
           this.open = !this.open;
+          ev.preventDefault()
           break;
         case "ArrowUp":
           this.open = true;
           this.selectedIndex--;
+          ev.preventDefault()
           break;
         case "ArrowDown":
           this.open = true;
           this.selectedIndex++;
+          ev.preventDefault()
           break;
         case "Enter":
           if (this.open) {
