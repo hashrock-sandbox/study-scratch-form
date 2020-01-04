@@ -4,10 +4,13 @@ Vue.component("e-option", {
   methods: {
     select(ev) {
       this.$emit("select", this.option);
-      ev.preventDefault();
     }
   }
 });
+
+function clamp(x, a, b) {
+  return Math.max(a, Math.min(b, x));
+}
 
 new Vue({
   el: "#app",
@@ -52,21 +55,18 @@ new Vue({
           break;
         case "ArrowUp":
           this.open = true;
-          if (this.selectedIndex > 0) {
-            this.selectedIndex--;
-          }
+          this.selectedIndex--;
           break;
         case "ArrowDown":
           this.open = true;
-          if (this.selectedIndex < this.options.length - 1) {
-            this.selectedIndex++;
-          }
+          this.selectedIndex++;
           break;
         case "Enter":
           if (this.open) {
             this.open = false;
           }
       }
+      this.selectedIndex = clamp(this.selectedIndex, 0, this.options.length - 1)
     });
   }
 });
