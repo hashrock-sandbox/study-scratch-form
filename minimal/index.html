@@ -1,22 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <div id="app">
-      <select>
-        <option>Option 01</option>
-        <option>Option 02</option>
-        <option>Option 03</option>
-        <option>Option 04</option>
-        <option>Option 05</option>
-      </select>
-
       <div class="wrapper">
         <div
           class="e-select"
@@ -28,23 +16,8 @@
           ref="select"
         >
           <div class="e-select__label">
-            {{value}}
+            {{value}} 🞃
           </div>
-          <svg
-            viewBox="0 0 640 640"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentcolor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="60"
-            style="margin-left: 4px;"
-          >
-            <path
-              d="M 200 200 L 320 80 L 440 200 M 440 440 L 320 560 L 200 440 "
-            />
-          </svg>
           <div
             class="e-options"
             v-if="open"
@@ -57,7 +30,6 @@
               @select="onSelect"
               :selected="selected"
               :option="option"
-              role="option"
             ></e-option>
           </div>
         </div>
@@ -67,4 +39,4 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="index.js"></script>
   </body>
-</html>
+</html

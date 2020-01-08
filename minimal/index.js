@@ -48,17 +48,18 @@ new Vue({
     }
   },
   mounted() {
-    window.addEventListener("scroll", e=>{
-      let select = this.$refs["select"]
-      let options = this.$refs["options"]
-      if(!options){
+    window.addEventListener("scroll", e => {
+      let select = this.$refs["select"];
+      let options = this.$refs["options"];
+      if (!options) {
         return;
       }
 
-      const relativePositionBottom = select.getBoundingClientRect().bottom - window.innerHeight;
+      const relativePositionBottom =
+        select.getBoundingClientRect().bottom - window.innerHeight;
 
-      this.positionBottom = -relativePositionBottom > options.clientHeight
-    })    
+      this.positionBottom = -relativePositionBottom > options.clientHeight;
+    });
 
     this.selectedIndex = this.options.length > 0 ? 0 : 1;
     this.value = this.selected;
@@ -74,17 +75,17 @@ new Vue({
             this.apply();
           }
           this.open = !this.open;
-          ev.preventDefault()
+          ev.preventDefault();
           break;
         case "ArrowUp":
           this.open = true;
           this.selectedIndex--;
-          ev.preventDefault()
+          ev.preventDefault();
           break;
         case "ArrowDown":
           this.open = true;
           this.selectedIndex++;
-          ev.preventDefault()
+          ev.preventDefault();
           break;
         case "Enter":
           if (this.open) {
