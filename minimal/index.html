@@ -5,35 +5,7 @@
   </head>
   <body>
     <div id="app">
-      <div class="wrapper">
-        <div
-          class="e-select"
-          role="combobox"
-          @mousedown="open = true"
-          @blur="onBlur"
-          @focus="onFocus"
-          tabindex="0"
-          ref="select"
-        >
-          <div class="e-select__label">
-            {{value}} 🞃
-          </div>
-          <div
-            class="e-options"
-            v-if="open"
-            ref="options"
-            :class="{positionTop: !positionBottom}"
-          >
-            <e-option
-              v-for="(option, idx) in options"
-              :key="idx"
-              @select="onSelect"
-              :selected="selected"
-              :option="option"
-            ></e-option>
-          </div>
-        </div>
-      </div>
+      <e-select></e-select>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

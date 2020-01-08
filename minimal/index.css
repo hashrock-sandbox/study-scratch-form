@@ -17,6 +17,7 @@ select {
   font-size: inherit;
 }
 .e-select {
+  position: relative;
   font-family: system-ui;
   border: 1px solid #999;
   padding: 0.25em 0.5em;
@@ -25,9 +26,6 @@ select {
   cursor: default;
   display: flex;
   align-items: center;
-}
-.wrapper {
-  position: relative;
 }
 .e-options {
   position: absolute;

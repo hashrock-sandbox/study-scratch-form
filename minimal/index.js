@@ -1,6 +1,10 @@
 Vue.component("e-option", {
   props: ["selected", "option"],
-  template: `<div @mousedown="select($event)" :class="{selected: selected === option}" class="e-option">{{option}}</div>`,
+  template: `
+    <div @mousedown="select($event)" :class="{selected: selected === option}" class="e-option">
+      {{option}}
+    </div>
+  `,
   methods: {
     select() {
       this.$emit("select", this.option);
@@ -12,15 +16,49 @@ function clamp(x, a, b) {
   return Math.max(a, Math.min(b, x));
 }
 
-new Vue({
-  el: "#app",
-  data: {
-    open: false,
-    options: ["Option 01", "Option 02", "Option 03", "Option 04", "Option 05"],
-    value: "",
-    selectedIndex: -1,
-    active: false,
-    positionBottom: true
+Vue.component("e-select", {
+  template: `
+  <div
+    class="e-select"
+    @mousedown="open = true"
+    @blur="onBlur"
+    @focus="onFocus"
+    tabindex="0"
+    ref="select"
+  >
+    <div class="e-select__label">
+      {{value}} 🞃
+    </div>
+    <div
+      class="e-options"
+      v-if="open"
+      ref="options"
+      :class="{positionTop: !positionBottom}"
+    >
+      <e-option
+        v-for="(option, idx) in options"
+        :key="idx"
+        @select="onSelect"
+        :selected="selected"
+        :option="option"
+      ></e-option>
+    </div>
+  </div>`,
+  data() {
+    return {
+      open: false,
+      options: [
+        "Option 01",
+        "Option 02",
+        "Option 03",
+        "Option 04",
+        "Option 05"
+      ],
+      value: "",
+      selectedIndex: -1,
+      active: false,
+      positionBottom: true
+    };
   },
   computed: {
     selected() {
@@ -93,4 +131,8 @@ new Vue({
       );
     });
   }
+});
+
+new Vue({
+  el: "#app"
 });
