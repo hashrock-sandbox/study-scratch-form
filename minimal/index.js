@@ -66,26 +66,21 @@ Vue.component("e-select", {
   },
   methods: {
     toggleOption() {
-      if (this.open) {
-        this.apply();
-      }
+      this.apply();
       this.open = !this.open;
     },
     moveSelect(offset) {
-      if (!this.active) {
-        return;
+      if (this.active) {
+        this.open = true;
+        this.selectedIndex += offset;
+        this.clamp();
       }
-      this.open = true;
-      this.selectedIndex += offset;
-      this.clamp();
     },
     closeOption(apply) {
-      if (this.open) {
-        this.open = false;
-        if (apply) {
-          this.apply();
-        }
+      if (apply) {
+        this.apply();
       }
+      this.open = false;
     },
     clamp() {
       this.selectedIndex = clamp(
@@ -98,7 +93,9 @@ Vue.component("e-select", {
       this.selectedIndex = this.options.indexOf(value);
     },
     apply() {
-      this.value = this.selected;
+      if (this.open) {
+        this.value = this.selected;
+      }
     },
     onBlur() {
       this.open = false;
@@ -114,7 +111,7 @@ Vue.component("e-select", {
     }
   },
   mounted() {
-    this.selectedIndex = this.options.length > 0 ? 0 : 1;
+    this.selectedIndex = this.options.length > 0 ? 0 : -1;
     this.value = this.selected;
   }
 });
