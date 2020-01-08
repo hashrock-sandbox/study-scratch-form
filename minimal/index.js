@@ -2,7 +2,7 @@ Vue.component("e-option", {
   props: ["selected", "option"],
   template: `<div @mousedown="select($event)" :class="{selected: selected === option}" class="e-option">{{option}}</div>`,
   methods: {
-    select(ev) {
+    select() {
       this.$emit("select", this.option);
     }
   }
@@ -48,19 +48,6 @@ new Vue({
     }
   },
   mounted() {
-    window.addEventListener("scroll", e => {
-      let select = this.$refs["select"];
-      let options = this.$refs["options"];
-      if (!options) {
-        return;
-      }
-
-      const relativePositionBottom =
-        select.getBoundingClientRect().bottom - window.innerHeight;
-
-      this.positionBottom = -relativePositionBottom > options.clientHeight;
-    });
-
     this.selectedIndex = this.options.length > 0 ? 0 : 1;
     this.value = this.selected;
     this.$el.addEventListener("keydown", ev => {
