@@ -25,6 +25,11 @@ Vue.component("e-select", {
     @focus="onFocus"
     tabindex="0"
     ref="select"
+    @keydown.space.prevent="toggleOption"
+    @keydown.up.prevent="moveSelect(-1)"
+    @keydown.down.prevent="moveSelect(1)"
+    @keydown.enter="closeOption(true)"
+    @keydown.esc="closeOption(false)"
   >
     <div class="e-select__label">
       {{value}} 🞃
@@ -66,6 +71,35 @@ Vue.component("e-select", {
     }
   },
   methods: {
+    toggleOption() {
+      if (this.open) {
+        this.apply();
+      }
+      this.open = !this.open;
+    },
+    moveSelect(offset) {
+      if (!this.active) {
+        return;
+      }
+      this.open = true;
+      this.selectedIndex += offset;
+      this.clamp();
+    },
+    closeOption(apply) {
+      if (this.open) {
+        this.open = false;
+        if (apply) {
+          this.apply();
+        }
+      }
+    },
+    clamp() {
+      this.selectedIndex = clamp(
+        this.selectedIndex,
+        0,
+        this.options.length - 1
+      );
+    },
     setSelection(value) {
       this.selectedIndex = this.options.indexOf(value);
     },
@@ -88,48 +122,6 @@ Vue.component("e-select", {
   mounted() {
     this.selectedIndex = this.options.length > 0 ? 0 : 1;
     this.value = this.selected;
-    this.$el.addEventListener("keydown", ev => {
-      if (!this.active) {
-        return;
-      }
-      switch (ev.code) {
-        case "Tab":
-          break;
-        case "Space":
-          if (this.open) {
-            this.apply();
-          }
-          this.open = !this.open;
-          ev.preventDefault();
-          break;
-        case "ArrowUp":
-          this.open = true;
-          this.selectedIndex--;
-          ev.preventDefault();
-          break;
-        case "ArrowDown":
-          this.open = true;
-          this.selectedIndex++;
-          ev.preventDefault();
-          break;
-        case "Enter":
-          if (this.open) {
-            this.open = false;
-            this.apply();
-          }
-          break;
-        case "Escape":
-          if (this.open) {
-            this.open = false;
-          }
-          break;
-      }
-      this.selectedIndex = clamp(
-        this.selectedIndex,
-        0,
-        this.options.length - 1
-      );
-    });
   }
 });
 
