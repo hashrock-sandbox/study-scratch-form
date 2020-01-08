@@ -49,16 +49,10 @@ Vue.component("e-select", {
       ></e-option>
     </div>
   </div>`,
+  props: ["options"],
   data() {
     return {
       open: false,
-      options: [
-        "Option 01",
-        "Option 02",
-        "Option 03",
-        "Option 04",
-        "Option 05"
-      ],
       value: "",
       selectedIndex: -1,
       active: false,
@@ -126,5 +120,8 @@ Vue.component("e-select", {
 });
 
 new Vue({
-  el: "#app"
+  el: "#app",
+  data: {
+    options: ["Option 01", "Option 02", "Option 03", "Option 04", "Option 05"]
+  }
 });
