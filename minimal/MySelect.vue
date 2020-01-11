@@ -105,6 +105,7 @@ export default {
 
 <style>
 .e-select {
+  outline: 0px;
   position: relative;
   font-family: system-ui;
   border: 1px solid #999;
@@ -114,6 +115,10 @@ export default {
   cursor: default;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+}
+.e-select:focus{
+  border: 3px solid rgb(158, 189, 255);
 }
 
 </style>
