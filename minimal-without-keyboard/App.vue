@@ -8,7 +8,9 @@
       <option>Option 05</option>
     </select>
 
-    <my-select :options="options"></my-select>
+    <my-select :options="options" v-model="value"></my-select>
+
+    <div>{{value}}</div>
   </div>
 </template>
 <script>
@@ -20,7 +22,8 @@ export default {
   },
   data() {
     return {
-      options: ["Option 01", "Option 02", "Option 03", "Option 04", "Option 05"]
+      options: ["Option 01", "Option 02", "Option 03", "Option 04", "Option 05"],
+      value: "Option 02"
     };
   }
 };

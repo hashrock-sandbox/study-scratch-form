@@ -1,12 +1,6 @@
 <template>
-  <div
-    class="select"
-    @mousedown="open = true"
-    @blur="onBlur"
-    @focus="onFocus"
-    tabindex="0"
-  >
-    <div class="select__label">{{value}} ▼</div>
+  <div class="select" @mousedown="open = true" @blur="onBlur" @focus="onFocus" tabindex="0">
+    <div class="select__label">{{currentValue}} ▼</div>
     <div class="options" v-if="open">
       <my-option
         v-for="(option, idx) in options"
@@ -20,19 +14,19 @@
 </template>
 
 <script>
-import MyOption from "./MyOption.vue"
+import MyOption from "./MyOption.vue";
 
 export default {
-  props: ["options"],
-  components :{
+  props: ["options", "value"],
+  components: {
     MyOption
   },
   data() {
     return {
       open: false,
-      value: "",
       selectedIndex: 0,
       active: false,
+      currentValue: "",
       positionBottom: true
     };
   },
@@ -46,17 +40,22 @@ export default {
       this.open = false;
       this.active = false;
     },
+    apply() {
+      this.currentValue = this.selected;
+      this.$emit("input", this.currentValue);
+    },
     onSelect(value) {
       this.selectedIndex = this.options.indexOf(value);
-        this.value = this.selected;
       this.open = false;
+      this.apply();
     },
     onFocus() {
       this.active = true;
     }
   },
   mounted() {
-    this.value = this.selected;
+    this.currentValue = this.value;
+    this.selectedIndex = this.options.indexOf(this.currentValue);
   }
 };
 </script>
@@ -75,7 +74,7 @@ export default {
   align-items: center;
   box-sizing: border-box;
 }
-.select:focus{
+.select:focus {
   border: 3px solid rgb(158, 189, 255);
 }
 .options {
