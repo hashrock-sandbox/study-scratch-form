@@ -1,6 +1,6 @@
 <template>
   <div
-    class="e-select"
+    class="select"
     @mousedown="open = true"
     @blur="onBlur"
     @focus="onFocus"
@@ -12,8 +12,8 @@
     @keydown.enter="closeOption(true)"
     @keydown.esc="closeOption(false)"
   >
-    <div class="e-select__label">{{value}} ▼</div>
-    <div class="e-options" v-if="open" ref="options" :class="{positionTop: !positionBottom}">
+    <div class="select__label">{{value}} ▼</div>
+    <div class="options" v-if="open" ref="options">
       <my-option
         v-for="(option, idx) in options"
         :key="idx"
@@ -103,8 +103,8 @@ export default {
 };
 </script>
 
-<style>
-.e-select {
+<style scoped>
+.select {
   outline: 0px;
   position: relative;
   font-family: system-ui;
@@ -117,8 +117,16 @@ export default {
   align-items: center;
   box-sizing: border-box;
 }
-.e-select:focus{
+.select:focus{
   border: 3px solid rgb(158, 189, 255);
 }
-
+.options {
+  position: absolute;
+  left: 0;
+  background: white;
+  border: 1px solid #999;
+  white-space: nowrap;
+  border-radius: 4px;
+  top: 100%;
+}
 </style>
