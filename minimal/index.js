@@ -32,7 +32,7 @@ Vue.component("e-select", {
     @keydown.esc="closeOption(false)"
   >
     <div class="e-select__label">
-      {{value}} 🞃
+      {{value}} ▼
     </div>
     <div
       class="e-options"

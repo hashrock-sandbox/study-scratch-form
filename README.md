@@ -1,5 +1,12 @@
 # フルスクラッチ GUI 入門
 
+今回は `Vue.js v2.6.11` を利用してセレクト要素を自作します。
+
+# 前提
+
+- HTML / CSS / JS / Vue.js に関しては概要説明のみとします。
+- アクセシビリティへの考慮はキーボード操作のみとします。
+
 # 車輪の再発明という大罪
 
 プログラミングの原理原則の一つに「車輪の再発明をするな」があります。
@@ -47,9 +54,29 @@ React でも Vue でも Angular でも構いません。まずは自分で実装
 
 ## トレースもとを観察しよう
 
-トレース元のコンポーネントを隣に置きましょう。
+まず、トレースもとのUIを配置します。
+
+```html
+<select>
+  <option>Option 01</option>
+  <option>Option 02</option>
+  <option>Option 03</option>
+  <option>Option 04</option>
+  <option>Option 05</option>
+</select>
+```
+
+これをレンダリングすると下記の図のようになります。
+
+![普通のSelect要素](./native-select.png)
+
+一通り操作を行い、どんな遷移があるか洗い出しましょう。
 
 遷移を図示すると下記のようになります。
+
+![マウス操作](./event-diagram-mouse.png)
+
+現時点ではキーボード操作による遷移は考えません。
 
 ## モックしよう
 
@@ -75,6 +102,8 @@ select をクリックすることでトグルするようにしましょう。
 アクセシビリティの確保において、キーボード操作への対応は重要です。
 併せて、フォーカス時の挙動についても再確認しておきましょう。
 
+![キーボード操作](./event-diagram-keyboard.png)
+
 まず最初に tabindex をつけるところからです。
 
 ## WAI-ARIA について
@@ -89,3 +118,4 @@ select をクリックすることでトグルするようにしましょう。
 しっかりしたコンポーネントを作りたい場合は、下記のサンプル実装を参考にしてください。
 
 https://w3c.github.io/aria-practices/examples/listbox/listbox-collapsible.html
+
