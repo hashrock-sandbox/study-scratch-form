@@ -5,7 +5,6 @@
     @blur="onBlur"
     @focus="onFocus"
     tabindex="0"
-    ref="select"
     @keydown.space.prevent="toggleOption"
     @keydown.up.prevent="moveSelect(-1)"
     @keydown.down.prevent="moveSelect(1)"
@@ -13,7 +12,7 @@
     @keydown.esc="closeOption(false)"
   >
     <div class="select__label">{{value}} ▼</div>
-    <div class="options" v-if="open" ref="options">
+    <div class="options" v-if="open">
       <my-option
         v-for="(option, idx) in options"
         :key="idx"
