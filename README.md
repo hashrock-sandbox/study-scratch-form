@@ -68,13 +68,13 @@ React でも Vue でも Angular でも構いません。まずは自分で実装
 
 これをレンダリングすると下記の図のようになります。
 
-![普通のSelect要素](./native-select.png)
+![普通のSelect要素](./assets/native-select.png)
 
 一通り操作を行い、どんな遷移があるか洗い出しましょう。
 
 遷移を図示すると下記のようになります。
 
-![マウス操作](./event-diagram-mouse.png)
+![マウス操作](./assets/event-diagram-mouse.png)
 
 現時点ではキーボード操作による遷移は考えません。
 
@@ -89,7 +89,7 @@ v-if などで非表示にすることでこれらの挙動を再現できます
 
 今回の肝はフロートする options で、`position: absolute`が必要になりそうです。
 
-![image](004.png)
+![image](assets/004.png)
 
 DOM構造は下記の通りとしました。
 
@@ -169,7 +169,7 @@ select をクリックすることでトグルするようにしましょう。
 アクセシビリティの確保において、キーボード操作への対応は重要です。
 併せて、フォーカス時の挙動についても再確認しておきましょう。
 
-![キーボード操作](./event-diagram-keyboard.png)
+![キーボード操作](./assets/event-diagram-keyboard.png)
 
 まず最初に tabindex をつけるところからです。
 
