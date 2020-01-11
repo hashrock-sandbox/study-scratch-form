@@ -5,7 +5,7 @@
       <div class="options">
         <div class="option">Option 01</div>
         <div class="option">Option 02</div>
-        <div class="option">Option 03</div>
+        <div class="option selected">Option 03</div>
         <div class="option">Option 04</div>
         <div class="option">Option 05</div>
       </div>
@@ -25,13 +25,9 @@ export default {};
   line-height: 0.9em;
   border-radius: 4px;
   cursor: default;
-  display: flex;
-  align-items: center;
-  display: block;
-  width: auto;
 }
 .select:focus {
-  box-shadow: 0 0 0px 2px rgb(81, 136, 255);
+  box-shadow: 0 0 0px 2px dodgerblue;
 }
 .options {
   position: absolute;

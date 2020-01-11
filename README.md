@@ -89,13 +89,80 @@ v-if などで非表示にすることでこれらの挙動を再現できます
 
 今回の肝はフロートする options で、`position: absolute`が必要になりそうです。
 
-![image](001.png)
+![image](004.png)
 
-![image](003.png)
+DOM構造は下記の通りとしました。
+
+この時点でtabindexをつけておきましょう。
+
+```html
+<div class="select" tabindex="0">
+  <div class="label">Option 01 ▼</div>
+  <div class="options">
+    <div class="option">Option 01</div>
+    <div class="option">Option 02</div>
+    <!-- 選択状態にある要素にselectedクラスをつけておく -->
+    <div class="option selected">Option 03</div>
+    <div class="option">Option 04</div>
+    <div class="option">Option 05</div>
+  </div>
+</div>
+```
+
+CSSは下記のようになります。各プロパティについてはコメントで解説します。
+
+要素にフォーカスした際のアウトラインは、デフォルトだとポップアップも含む要素全体にかかってしまうため、今回は`outline: 0px;`で外した上で、代替アウトラインを付け直しています。
+
+```css
+.select {
+  /* absoluteの基準地点 */
+  position: relative;
+  /* 見た目関連 */
+  border: 1px solid #999;
+  padding: 0.25em 0.5em;
+  line-height: 0.9em;
+  border-radius: 4px;
+  cursor: default;
+  /* アウトラインは消去（必ず代替アウトラインを設定すること） */
+  outline: 0px;
+}
+.select:focus {
+  /* 代替アウトライン */
+  box-shadow: 0 0 0px 2px dodgerblue;
+}
+.options {
+  /* 絶対配置 */
+  position: absolute;
+  /* 親要素の高さ分縦方向に移動 */
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #999;
+  white-space: nowrap;
+  border-radius: 4px;
+}
+.option {
+  line-height: 1.5em;
+  padding: 0 0.5em;
+  cursor: default;
+}
+.option:hover {
+  background: #eee;
+}
+.selected {
+  background: #ddd;
+}
+```
+
+見た目が完成したら、実データを表示できるようにしたり、クリック時などの挙動を組み込んで行きます。
 
 ## オープン・クローズの挙動をつけよう
 
 select をクリックすることでトグルするようにしましょう。
+
+## 実データをpropsとして受け取る
+
+## v-modelに対応する
 
 ## キーボード操作に対応しよう
 
@@ -105,6 +172,11 @@ select をクリックすることでトグルするようにしましょう。
 ![キーボード操作](./event-diagram-keyboard.png)
 
 まず最初に tabindex をつけるところからです。
+
+## 改善が必要な点
+
+今回は扱いませんでしたが、コンポーネントの下にいつも余裕があるとは限らないので、ポップアップする要素は上下に出し分けられると良いでしょう。
+
 
 ## WAI-ARIA について
 
