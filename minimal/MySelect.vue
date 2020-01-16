@@ -1,18 +1,23 @@
 <template>
-  <div
+  <button
     class="select"
     @mousedown="open = true"
     @blur="onBlur"
     @focus="onFocus"
     tabindex="0"
     @keydown.space.prevent="toggleOption"
-    @keydown.up.prevent="moveSelect(-1)"
-    @keydown.down.prevent="moveSelect(1)"
+    @keydown.up="moveSelect(-1)"
+    @keydown.down="moveSelect(1)"
     @keydown.enter="closeOption(true)"
     @keydown.esc="closeOption(false)"
+    aria-haspopup="listbox"
+    aria-labelledby="exp_elem exp_button"
+    :aria-expanded="open"
+    aria-activedescendant="exp_elem_Es"
+    id="exp_button"
   >
     <div class="select__label">{{value}} ▼</div>
-    <div class="options" v-if="open">
+    <ul class="options" v-show="open" role="listbox" tabindex="-1" ref="options">
       <my-option
         v-for="(option, idx) in options"
         :key="idx"
@@ -20,8 +25,8 @@
         :selected="selected"
         :option="option"
       ></my-option>
-    </div>
-  </div>
+    </ul>
+  </button>
 </template>
 
 <script>
@@ -53,6 +58,10 @@ export default {
     toggleOption() {
       this.apply();
       this.open = !this.open;
+      this.$nextTick(()=>{
+        console.log(this.$refs.options)
+        this.$refs.options.focus()
+      })
     },
     moveSelect(offset) {
       if (this.active) {
@@ -83,8 +92,8 @@ export default {
       }
     },
     onBlur() {
-      this.open = false;
-      this.active = false;
+      // this.open = false;
+      // this.active = false;
     },
     onSelect(value) {
       this.setSelection(value);

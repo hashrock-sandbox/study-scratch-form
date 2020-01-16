@@ -1,9 +1,11 @@
 <template>
-  <div
+  <li
     @mousedown="select($event)"
     :class="{selected: selected === option}"
     class="option"
-  >{{option}}</div>
+    :aria-selected="selected"
+    role="option"
+  >{{option}}</li>
 </template>
 
 <script>
