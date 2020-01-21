@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ok</title>
+  </head>
+  <body>
+    <div id="app">
+      <button
+        @click="open = !open"
+        role="combobox"
+        aria-haspopup="true"
+        :aria-expanded="open.toString()"
+        :aria-activedescendant="selectedId"
+        aria-controls="l"
+      >
+        <!-- aria-activedescendantは選択状態の読み上げに必要 -->
+        <!-- idはaria-selectedがついていないと「選択なし」と読み上げられる -->
+        {{selected}}
+      </button>
+
+      <ul role="listbox" id="l" v-show="open">
+        <li
+          role="option"
+          tabindex="0"
+          v-for="(item, index) in list"
+          :id="'__' + item"
+          @click="select(index)"
+          :aria-selected="index === selectedIndex"
+        >
+          {{item}}
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            open: false,
+            selectedIndex: 0,
+            list: ["item01", "item02", "item03"]
+          };
+        },
+        computed: {
+          selected() {
+            return this.list[this.selectedIndex];
+          },
+          selectedId() {
+            return "__" +  this.list[this.selectedIndex];
+          }
+        },
+        methods: {
+          select(index) {
+            this.selectedIndex = index;
+            this.open = false;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
