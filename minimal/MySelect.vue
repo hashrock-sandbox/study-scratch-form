@@ -1,5 +1,6 @@
 <template>
   <div
+    role="combobox"
     class="select"
     @mousedown="open = true"
     @blur="onBlur"
@@ -14,7 +15,10 @@
     aria-haspopup="listbox"
     :aria-activedescendant="selected ? selected.id : null"
   >
-    <div class="select__label">{{value}} ▼</div>
+    <div class="select__label">
+      {{value}}
+      <span aria-hidden="true">▼</span>
+    </div>
     <ul class="options" v-if="open" role="listbox">
       <my-option
         v-for="(option, idx) in options"
@@ -81,7 +85,7 @@ export default {
     },
     apply() {
       if (this.open) {
-        this.$emit("input", this.selected.value)
+        this.$emit("input", this.selected.value);
       }
     },
     onBlur() {
@@ -99,7 +103,7 @@ export default {
   },
   mounted() {
     this.selectedIndex = this.options.length > 0 ? 0 : -1;
-    this.apply()
+    this.apply();
   }
 };
 </script>
