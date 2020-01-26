@@ -1,9 +1,9 @@
 <template>
-  <div
+  <li
     @mousedown="select($event)"
     :class="{selected: selected === option}"
     class="option"
-  >{{option}}</div>
+  >{{option}}</li>
 </template>
 
 <script>

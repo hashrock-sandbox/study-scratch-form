@@ -12,7 +12,7 @@
     @keydown.esc="closeOption(false)"
   >
     <div class="select__label">{{value}} ▼</div>
-    <div class="options" v-if="open">
+    <ul class="options" v-if="open">
       <my-option
         v-for="(option, idx) in options"
         :key="idx"
@@ -20,7 +20,7 @@
         :selected="selected"
         :option="option"
       ></my-option>
-    </div>
+    </ul>
   </div>
 </template>
 
@@ -28,11 +28,11 @@
 function clamp(x, a, b) {
   return Math.max(a, Math.min(b, x));
 }
-import MyOption from "./MyOption.vue"
+import MyOption from "./MyOption.vue";
 
 export default {
   props: ["options"],
-  components :{
+  components: {
     MyOption
   },
   data() {
@@ -116,7 +116,7 @@ export default {
   align-items: center;
   box-sizing: border-box;
 }
-.select:focus{
+.select:focus {
   border: 3px solid rgb(158, 189, 255);
 }
 .options {
@@ -127,5 +127,8 @@ export default {
   white-space: nowrap;
   border-radius: 4px;
   top: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 </style>
