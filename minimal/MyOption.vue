@@ -5,12 +5,13 @@
     :aria-selected="selected"
     class="option"
     role="option"
-  >{{option}}</li>
+    :id="option.id"
+  >{{option.value}}</li>
 </template>
 
 <script>
 export default {
-  props: { selected: Boolean, option: String },
+  props: { selected: Boolean, option: Object },
   methods: {
     select() {
       this.$emit("select", this.option);

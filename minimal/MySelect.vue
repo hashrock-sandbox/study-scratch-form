@@ -12,6 +12,7 @@
     @keydown.esc="closeOption(false)"
     :aria-expanded="open ? 'true' : 'false'"
     aria-haspopup="listbox"
+    :aria-activedescendant="selected ? selected.id : null"
   >
     <div class="select__label">{{value}} ▼</div>
     <ul class="options" v-if="open" role="listbox">
@@ -81,7 +82,7 @@ export default {
     },
     apply() {
       if (this.open) {
-        this.value = this.selected;
+        this.value = this.selected.value;
       }
     },
     onBlur() {
@@ -99,7 +100,7 @@ export default {
   },
   mounted() {
     this.selectedIndex = this.options.length > 0 ? 0 : -1;
-    this.value = this.selected;
+    this.value = this.selected.value;
   }
 };
 </script>

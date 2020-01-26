@@ -20,7 +20,10 @@ export default {
   },
   data() {
     return {
-      options: ["Option 01", "Option 02", "Option 03", "Option 04", "Option 05"]
+      options: [
+        { value: "Option 01", id: "Option01" },
+        { value: "Option 02", id: "Option02" }
+      ]
     };
   }
 };
