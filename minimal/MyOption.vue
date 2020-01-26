@@ -1,14 +1,16 @@
 <template>
   <li
     @mousedown="select($event)"
-    :class="{selected: selected === option}"
+    :class="{selected: selected}"
+    :aria-selected="selected"
     class="option"
+    role="option"
   >{{option}}</li>
 </template>
 
 <script>
 export default {
-  props: ["selected", "option"],
+  props: { selected: Boolean, option: String },
   methods: {
     select() {
       this.$emit("select", this.option);
@@ -24,9 +26,9 @@ export default {
   cursor: default;
 }
 .option:hover {
-  background: #eee;
+  background: #ddd;
 }
 .selected {
-  background: #ddd;
+  background: #aaa;
 }
 </style>

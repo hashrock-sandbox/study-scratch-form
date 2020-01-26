@@ -10,14 +10,16 @@
     @keydown.down.prevent="moveSelect(1)"
     @keydown.enter="closeOption(true)"
     @keydown.esc="closeOption(false)"
+    :aria-expanded="open ? 'true' : 'false'"
+    aria-haspopup="listbox"
   >
     <div class="select__label">{{value}} ▼</div>
-    <ul class="options" v-if="open">
+    <ul class="options" v-if="open" role="listbox">
       <my-option
         v-for="(option, idx) in options"
         :key="idx"
         @select="onSelect"
-        :selected="selected"
+        :selected="selected === option"
         :option="option"
       ></my-option>
     </ul>
