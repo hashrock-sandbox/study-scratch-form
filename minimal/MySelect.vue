@@ -34,14 +34,13 @@ function clamp(x, a, b) {
 import MyOption from "./MyOption.vue";
 
 export default {
-  props: ["options"],
+  props: ["options", "value"],
   components: {
     MyOption
   },
   data() {
     return {
       open: false,
-      value: "",
       selectedIndex: -1,
       active: false,
       positionBottom: true
@@ -82,7 +81,7 @@ export default {
     },
     apply() {
       if (this.open) {
-        this.value = this.selected.value;
+        this.$emit("input", this.selected.value)
       }
     },
     onBlur() {
@@ -100,7 +99,7 @@ export default {
   },
   mounted() {
     this.selectedIndex = this.options.length > 0 ? 0 : -1;
-    this.value = this.selected.value;
+    this.apply()
   }
 };
 </script>
