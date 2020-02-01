@@ -4,7 +4,6 @@
     class="select"
     @mousedown="open = true"
     @blur="onBlur"
-    @focus="onFocus"
     tabindex="0"
     @keydown.space.prevent="toggleOption"
     @keydown.up.prevent="moveSelect(-1)"
@@ -46,7 +45,6 @@ export default {
     return {
       open: false,
       selectedIndex: -1,
-      active: false,
       positionBottom: true
     }
   },
@@ -61,11 +59,9 @@ export default {
       this.open = !this.open
     },
     moveSelect(offset) {
-      if (this.active) {
-        this.open = true
-        this.selectedIndex += offset
-        this.clamp()
-      }
+      this.open = true
+      this.selectedIndex += offset
+      this.clamp()
     },
     closeOption(apply) {
       if (apply) {
@@ -86,15 +82,11 @@ export default {
     },
     onBlur() {
       this.open = false
-      this.active = false
     },
     onSelect(value) {
       this.setSelection(value)
       this.apply()
       this.open = false
-    },
-    onFocus() {
-      this.active = true
     }
   },
   mounted() {
@@ -133,6 +125,6 @@ export default {
   border-radius: 4px;
   list-style: none;
   margin: 0;
-  padding: 0;  
+  padding: 0;
 }
 </style>
