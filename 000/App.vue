@@ -31,7 +31,7 @@ html {
 }
 body {
   font-size: 16px;
-  margin: 0;
+  margin: 1rem;
 }
 
 .app {

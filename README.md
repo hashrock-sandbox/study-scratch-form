@@ -1,22 +1,15 @@
 # フルスクラッチ GUI 入門
 
+さて、いきなり自分で考えたGUIをスクラッチし始めるのもエキサイティングですが、
+何を作ればいいか思いつかないという方も多いかと思います。
+そこで、第一歩として「既存UIの再実装」をしてみましょう。
+
 今回は `Vue.js v2.6.11` を利用してselect要素を自作します。
 
 # 前提
 
 - HTML / CSS / JS / Vue.js に関しては概要説明のみとします。
 - アクセシビリティへの考慮はキーボード操作のみとします。
-
-# 車輪の再発明という大罪
-
-プログラミングの原理原則の一つに「車輪の再発明をするな」があります。
-
-部品の再利用ができるのがプログラミングが発展してきた理由であるからです。
-
-この本は、そういった原則を当たり前のように破ります。
-
-真面目な方はこの本を閉じることをおすすめします。
-この本は車輪の再発明のためのガイドであり、昏倒するに違いありません。
 
 # フルスクラッチ GUI の原罪
 
@@ -37,7 +30,6 @@
 
 ここから先は当然のようにアクセシビリティが損なわれる世界です。
 スクラッチではどうしてもネイティブのアクセシビリティに至らないことも多くあります。
-
 
 # 作ってみようよ
 
@@ -90,7 +82,7 @@ v-if などで非表示にすることでこれらの挙動を再現できます
 
 今回の肝はフロートする options で、`position: absolute`が必要になりそうです。
 
-![image](assets/004.png)
+![image](assets/005.png)
 
 DOM構造は下記の通りとしました。
 
@@ -99,22 +91,27 @@ DOM構造は下記の通りとしました。
 ```html
 <div class="select" tabindex="0">
   <div class="label">Option 01 ▼</div>
-  <div class="options">
-    <div class="option">Option 01</div>
-    <div class="option">Option 02</div>
+  <ul class="options">
     <!-- 選択状態にある要素にselectedクラスをつけておく -->
-    <div class="option selected">Option 03</div>
-    <div class="option">Option 04</div>
-    <div class="option">Option 05</div>
-  </div>
+    <li class="option selected">Option 01</li>
+    <li class="option">Option 02</li>
+    <li class="option">Option 03</li>
+    <li class="option">Option 04</li>
+    <li class="option">Option 05</li>
+  </ul>
 </div>
 ```
 
-Optionはdivで実装してしまいがちですが、これはリストであるためにulを使うほうがセマンティックです。
+Optionはdivでも表現可能ですが、リストであることを考えると ul / li 要素を使うほうが適切でしょう。
+
+フォーカス時のアウトラインは、デフォルトだとポップアップも含む要素全体にかかってしまいます。
+
+![image](assets/006.png)
+
+今回は`outline: 0px;`でアウトラインを非表示にしますが、フォーカス時の視覚的ヒントがないとアクセシビリティ上の問題がありますので、必ず代替アウトラインを付け直してください。
 
 CSSは下記のようになります。各プロパティについてはコメントで解説します。
 
-要素にフォーカスした際のアウトラインは、デフォルトだとポップアップも含む要素全体にかかってしまうため、今回は`outline: 0px;`で外した上で、代替アウトラインを付け直しています。
 
 ```css
 .select {
@@ -143,6 +140,9 @@ CSSは下記のようになります。各プロパティについてはコメ�
   border: 1px solid #999;
   white-space: nowrap;
   border-radius: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;  
 }
 .option {
   line-height: 1.5em;
@@ -152,8 +152,9 @@ CSSは下記のようになります。各プロパティについてはコメ�
 .option:hover {
   background: #eee;
 }
-.selected {
-  background: #ddd;
+.option.selected {
+  background: #888;
+  color: white;
 }
 ```
 
@@ -164,6 +165,9 @@ CSSは下記のようになります。各プロパティについてはコメ�
 select をクリックすることでトグルするようにしましょう。
 
 Vue.jsの場合、単純にopenというフラグを持たせてしまえばOKです。
+
+## 要素を選択可能にする
+
 
 また、何番目の要素が選択されているかを selectedIndex というデータに持たせます。
 
