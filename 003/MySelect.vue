@@ -29,12 +29,12 @@
 
 <script>
 function clamp(x, a, b) {
-  return Math.max(a, Math.min(b, x));
+  return Math.max(a, Math.min(b, x))
 }
-import MyOption from "./MyOption.vue";
+import MyOption from './MyOption.vue'
 
 export default {
-  props: ["options", "value"],
+  props: ['options', 'value'],
   components: {
     MyOption
   },
@@ -44,64 +44,60 @@ export default {
       selectedIndex: -1,
       active: false,
       positionBottom: true
-    };
+    }
   },
   computed: {
     selected() {
-      return this.options[this.selectedIndex];
+      return this.options[this.selectedIndex]
     }
   },
   methods: {
     toggleOption() {
-      this.apply();
-      this.open = !this.open;
+      this.apply()
+      this.open = !this.open
     },
     moveSelect(offset) {
       if (this.active) {
-        this.open = true;
-        this.selectedIndex += offset;
-        this.clamp();
+        this.open = true
+        this.selectedIndex += offset
+        this.clamp()
       }
     },
     closeOption(apply) {
       if (apply) {
-        this.apply();
+        this.apply()
       }
-      this.open = false;
+      this.open = false
     },
     clamp() {
-      this.selectedIndex = clamp(
-        this.selectedIndex,
-        0,
-        this.options.length - 1
-      );
+      this.selectedIndex = clamp(this.selectedIndex, 0, this.options.length - 1)
     },
     setSelection(value) {
-      this.selectedIndex = this.options.indexOf(value);
+      this.selectedIndex = this.options.indexOf(value)
     },
     apply() {
       if (this.open) {
-        this.$emit("input", this.selected.value);
+        this.$emit('input', this.selected.value)
       }
     },
     onBlur() {
-      this.open = false;
-      this.active = false;
+      this.open = false
+      this.active = false
     },
     onSelect(value) {
-      this.setSelection(value);
-      this.apply();
-      this.open = false;
+      this.setSelection(value)
+      this.apply()
+      this.open = false
     },
     onFocus() {
-      this.active = true;
+      this.active = true
     }
   },
   mounted() {
-    this.selectedIndex = this.options.length > 0 ? 0 : -1;
-    this.apply();
+    this.selectedIndex = this.options.length > 0 ? 0 : -1
+    this.apply()
   }
-};
+}
 </script>
 
 <style scoped>

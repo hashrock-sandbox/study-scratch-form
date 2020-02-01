@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import MyOption from "./MyOption.vue";
+import MyOption from './MyOption.vue'
 
 export default {
-  props: ["options", "value"],
+  props: ['options', 'value'],
   components: {
     MyOption
   },
@@ -29,29 +29,29 @@ export default {
       open: false,
       selectedIndex: -1,
       positionBottom: true
-    };
+    }
   },
   computed: {
     selected() {
-      return this.options[this.selectedIndex];
+      return this.options[this.selectedIndex]
     }
   },
   methods: {
     setSelection(value) {
-      this.selectedIndex = this.options.indexOf(value);
+      this.selectedIndex = this.options.indexOf(value)
     },
     onBlur() {
-      this.open = false;
+      this.open = false
     },
     onSelect(value) {
-      this.setSelection(value);
-      this.open = false;
+      this.setSelection(value)
+      this.open = false
     }
   },
   mounted() {
-    this.selectedIndex = this.options.length > 0 ? 0 : -1;
+    this.selectedIndex = this.options.length > 0 ? 0 : -1
   }
-};
+}
 </script>
 
 <style scoped>

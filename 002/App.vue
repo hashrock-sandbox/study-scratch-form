@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import MySelect from "./MySelect.vue";
+import MySelect from './MySelect.vue'
 
 export default {
   components: {
@@ -20,17 +20,17 @@ export default {
   },
   data() {
     return {
-      value: "Option 01",
+      value: 'Option 01',
       options: [
-        { value: "Option 01" },
-        { value: "Option 02" },
-        { value: "Option 03" },
-        { value: "Option 04" },
-        { value: "Option 05" }
+        { value: 'Option 01' },
+        { value: 'Option 02' },
+        { value: 'Option 03' },
+        { value: 'Option 04' },
+        { value: 'Option 05' }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style>

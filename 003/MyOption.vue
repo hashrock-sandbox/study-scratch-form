@@ -7,10 +7,10 @@ export default {
   props: { selected: Boolean, option: Object },
   methods: {
     select() {
-      this.$emit("select", this.option);
+      this.$emit('select', this.option)
     }
   }
-};
+}
 </script>
 
 <style scoped>
