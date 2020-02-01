@@ -1,7 +1,7 @@
 <template>
   <div class="select" @mousedown="open = true" @blur="onBlur" tabindex="0">
     <div class="select__label">
-      {{value}}
+      {{selected ? selected.value : ""}}
       ▼
     </div>
     <ul class="options" v-if="open">
@@ -40,23 +40,16 @@ export default {
     setSelection(value) {
       this.selectedIndex = this.options.indexOf(value);
     },
-    apply() {
-      if (this.open) {
-        this.$emit("input", this.selected.value);
-      }
-    },
     onBlur() {
       this.open = false;
     },
     onSelect(value) {
       this.setSelection(value);
-      this.apply();
       this.open = false;
     }
   },
   mounted() {
     this.selectedIndex = this.options.length > 0 ? 0 : -1;
-    this.apply();
   }
 };
 </script>
