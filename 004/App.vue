@@ -23,7 +23,10 @@ export default {
       value: "Option 01",
       options: [
         { value: "Option 01", id: "Option01" },
-        { value: "Option 02", id: "Option02" }
+        { value: "Option 02", id: "Option02" },
+        { value: "Option 03", id: "Option03" },
+        { value: "Option 04", id: "Option04" },
+        { value: "Option 05", id: "Option05" }
       ]
     };
   }
