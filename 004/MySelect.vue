@@ -3,12 +3,12 @@
     class="select"
     ref="select"
     @mousedown="open = true"
-    :tabindex="open ? -1 : 0"
     @keydown.space.prevent="toggleOption"
     @keydown.up.prevent="moveSelect(-1)"
     @keydown.down.prevent="moveSelect(1)"
     @keydown.enter="closeOption(true)"
     @keydown.esc="closeOption(false)"
+    :tabindex="open ? -1 : 0"
     :aria-expanded="open ? 'true' : 'false'"
     aria-haspopup="listbox"
     :aria-activedescendant="selected ? selected.id : null"
@@ -18,10 +18,10 @@
       <span aria-hidden="true">▼</span>
     </div>
     <ul
-      ref="listbox"
       class="options"
       v-if="open"
       role="listbox"
+      ref="listbox"
       :tabindex="open ? 0 : -1"
       @blur="onBlur"
     >
