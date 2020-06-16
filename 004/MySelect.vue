@@ -1,10 +1,9 @@
 <template>
   <div
-    role="combobox"
     class="select"
+    ref="select"
     @mousedown="open = true"
-    @blur="onBlur"
-    tabindex="0"
+    :tabindex="open ? -1 : 0"
     @keydown.space.prevent="toggleOption"
     @keydown.up.prevent="moveSelect(-1)"
     @keydown.down.prevent="moveSelect(1)"
@@ -18,7 +17,14 @@
       {{value}}
       <span aria-hidden="true">▼</span>
     </div>
-    <ul class="options" v-if="open" role="listbox">
+    <ul
+      ref="listbox"
+      class="options"
+      v-if="open"
+      role="listbox"
+      :tabindex="open ? 0 : -1"
+      @blur="onBlur"
+    >
       <my-option
         v-for="(option, idx) in options"
         :key="idx"
@@ -57,6 +63,15 @@ export default {
     toggleOption() {
       this.apply()
       this.open = !this.open
+      if (this.open) {
+        this.$nextTick(() => {
+          this.$refs.listbox.focus()
+        })
+      } else {
+        this.$nextTick(() => {
+          this.$refs.select.focus()
+        })
+      }
     },
     moveSelect(offset) {
       this.open = true

@@ -25,6 +25,7 @@ export default {
   line-height: 1.5em;
   padding: 0 0.5em;
   cursor: default;
+  user-select: none;
 }
 .option:hover {
   background: #ddd;
